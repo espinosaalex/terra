@@ -1,0 +1,31 @@
+/* style.css */
+/* --- Import Google Fonts stylesheets --- */
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:400,300,700|Montserrat:400,700");
+
+/* --- Import Components stylesheets --- */
+/*@import url("components/avatar.css");
+@import url("components/button.css");*/
+
+/* --- Define basic style for fonts & colors --- */
+body {
+  font-family: "Arial", "sans-serif";
+  color: black;
+  background-color: #8EDAC0;
+}
+h1, h2, h3 {
+}
+
+p {
+  font-size: 42px;
+  line-height: 52px;
+  word-spacing: 0px;
+}
+
+.container {
+  margin: 0px 142.406px;
+  padding: 64px 0px;
+}
+
+.hypha {
+  color: white;
+}
