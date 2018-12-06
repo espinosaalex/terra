@@ -30,7 +30,7 @@ function refreshHyphae(blockId){
 
 
 function getChannel(id){
-  fetch("https://api.are.na/v2/channels/" + id.toString() + "?page=2&amp;per=30") //"/contents"
+  fetch("https://api.are.na/v2/channels/" + id.toString() + "?page=1&amp;per=30") //figure out pagination
   .then(response => response.json())
   .then((data) => {
     channel = data;
