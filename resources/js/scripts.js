@@ -9,7 +9,7 @@ let right = 0;
 let left = 0;
 
 function refreshHyphae(blockId){
-  fetch("http://api.are.na/v2/blocks/" + blockId.toString() + "/channels")
+  fetch("https://api.are.na/v2/blocks/" + blockId.toString() + "/channels")
   .then(response => response.json())
   .then((data) => {
     data.channels.forEach(function(hypha){
@@ -30,7 +30,7 @@ function refreshHyphae(blockId){
 
 
 function getChannel(id){
-  fetch("http://api.are.na/v2/channels/" + id.toString() + "?page=2&amp;per=30") //"/contents"
+  fetch("https://api.are.na/v2/channels/" + id.toString() + "?page=2&amp;per=30") //"/contents"
   .then(response => response.json())
   .then((data) => {
     channel = data;
