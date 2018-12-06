@@ -3,12 +3,12 @@
 // switch to new hypha
 
 let contInd = 0;
-let blockId = 0;
+// let blockId = 0;
 let channel = '';
 let right = 0;
 let left = 0;
 
-function refreshHyphae(){
+function refreshHyphae(blockId){
   fetch("http://api.are.na/v2/blocks/" + blockId.toString() + "/channels")
   .then(response => response.json())
   .then((data) => {
@@ -17,15 +17,20 @@ function refreshHyphae(){
     });
     let shuffled = data.channels;
     shuffle(shuffled);
+    console.log(shuffled.length);
     //fix in case less than 2 hypha
-    right = shuffled[0].id;
-    left = shuffled[1].id;
+    if (shuffled.length >= 1) {
+      right = shuffled[0].id;
+    }
+    if (shuffled.length >= 2) {
+      left = shuffled[1].id;
+    }
     });
 }
 
 
 function getChannel(id){
-  fetch("http://api.are.na/v2/channels/" + id.toString() ) //"/contents"
+  fetch("http://api.are.na/v2/channels/" + id.toString() + "?page=2&amp;per=30") //"/contents"
   .then(response => response.json())
   .then((data) => {
     channel = data;
@@ -50,11 +55,26 @@ function getChannel(id){
 function getSpore(){
   console.log(channel.contents);
   console.log(contInd);
-  blockId = channel.contents[contInd].id;
-  $("#spore-content").html(channel.contents[contInd].content_html);
-  $("#spore-id").text("spore " + channel.contents[contInd].id.toString());
-  contInd += 1;
-  refreshHyphae();
+  if (channel.contents.length <= contInd) {
+    console.log("end");
+  }
+  else {
+    let block = channel.contents[contInd];
+    let blockId = block.id;
+    if (channel.contents[contInd].class == "Image") {
+      console.log(block.image);
+      $("#spore-content").html("<img src=" + block.image.large.url + ">");
+    }
+
+    else {
+      $("#spore-content").html(channel.contents[contInd].content_html);
+      $("#spore-id").text("spore " + channel.contents[contInd].id.toString());
+    }
+
+    contInd += 1;
+    refreshHyphae(blockId);
+  }
+
 }
 
 
