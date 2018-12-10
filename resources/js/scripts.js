@@ -2,7 +2,7 @@
 // proceed to next spore
 // switch to new hypha
 
-let contInd = 0;
+let contInd = 0; //index of current content in channel
 // let blockId = 0;
 let channel = '';
 let right = 0;
@@ -12,24 +12,36 @@ function refreshHyphae(blockId){
   fetch("https://api.are.na/v2/blocks/" + blockId.toString() + "/channels")
   .then(response => response.json())
   .then((data) => {
+    let hyphae = []
+    console.log(data.channels);
     data.channels.forEach(function(hypha){
-      $("#spore-content").append("<p data-id=" + hypha.id.toString() + " class ='hypha'>" + hypha.title + "</p>");
+      if ((hypha.user_id == 75780) && (hypha.title != "terrarism") && (hypha.id != channel.id)){
+        $("#spore-content").append("<p data-id=" + hypha.id.toString() + " class ='hypha'>" + hypha.title + "</p>");
+        hyphae.push(hypha);
+      }
+
     });
-    let shuffled = data.channels;
-    shuffle(shuffled);
-    console.log(shuffled.length);
+    shuffle(hyphae);
+    console.log(hyphae);
     //fix in case less than 2 hypha
-    if (shuffled.length >= 1) {
-      right = shuffled[0].id;
+    if (hyphae.length == 0) {
+      right = 0;
+      left = 0;
     }
-    if (shuffled.length >= 2) {
-      left = shuffled[1].id;
+    else if (hyphae.length == 1) {
+      right = hyphae[0].id;
+      left = hyphae[0].id;
+    }
+    else if (hyphae.length >= 2) {
+      right = hyphae[0].id;
+      left = hyphae[1].id;
     }
     });
 }
 
 
 function getChannel(id){
+  current_chan = id;
   fetch("https://api.are.na/v2/channels/" + id.toString() + "?page=1&amp;per=30") //figure out pagination
   .then(response => response.json())
   .then((data) => {
@@ -38,16 +50,6 @@ function getChannel(id){
     contInd = 0;
     getSpore();
   });
-
-//   $.ajax({
-//     url: "http://api.are.na/v2/channels/" + id.toString(),
-//     dataType: 'json',
-//     async: false,
-//     success: function(json){
-//       channel = json
-//       $("#hypha-title").text(channel.title);
-//     }
-// });
 }
 
 
@@ -55,15 +57,16 @@ function getChannel(id){
 function getSpore(){
   console.log(channel.contents);
   console.log(contInd);
-  if (channel.contents.length <= contInd) {
+  if (channel.contents.length == contInd) {
     console.log("end");
+    return endOfHypha();
   }
   else {
     let block = channel.contents[contInd];
     let blockId = block.id;
     if (channel.contents[contInd].class == "Image") {
       console.log(block.image);
-      $("#spore-content").html("<img src=" + block.image.large.url + ">");
+      $("#spore-content").html("<img src=" + block.image.display.url + ">");
     }
 
     else {
@@ -74,7 +77,10 @@ function getSpore(){
     contInd += 1;
     refreshHyphae(blockId);
   }
+}
 
+function endOfHypha(){
+  $("#spore-content").html("<p>you have reached the end of this hypha</p>");
 }
 
 
@@ -116,7 +122,9 @@ $( "#forward" ).click(function() {
 $(document).keydown(function(e) {
     switch(e.which) {
         case 37: // left
-          getChannel(left);
+          if (left != 0) {
+           getChannel(left);
+          }
         break;
 
         case 38: // up
@@ -124,7 +132,9 @@ $(document).keydown(function(e) {
         break;
 
         case 39: // right
-          getChannel(right);
+          if (right != 0) {
+           getChannel(right);
+          }
         break;
 
         case 40: // down
