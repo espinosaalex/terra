@@ -29,13 +29,25 @@ function refreshHyphae(blockId){
       left = 0;
     }
     else if (hyphae.length == 1) {
-      right = hyphae[0].id;
-      left = hyphae[0].id;
+      right = hyphae[0];
+      left = hyphae[0];
     }
     else if (hyphae.length >= 2) {
-      right = hyphae[0].id;
-      left = hyphae[1].id;
+      right = hyphae[0];
+      left = hyphae[1];
     }
+    if (right != 0) {
+      console.log(left.title);
+      $("#box-left").text(left.title);
+      $("#box-right").text(right.title);
+    }
+    else {
+      $("#box-left").text();
+      $("#box-right").text();
+    }
+
+
+
     });
 }
 
@@ -110,7 +122,7 @@ $( document ).ready(function() {
 
 });
 
-$('.container').on('click', '.hypha', function(e) {
+$('.page-right').on('click', '.hypha', function(e) {
   getChannel($(e.target).attr("data-id"));
   contInd = 0;
 });
@@ -123,7 +135,7 @@ $(document).keydown(function(e) {
     switch(e.which) {
         case 37: // left
           if (left != 0) {
-           getChannel(left);
+           getChannel(left.id);
           }
         break;
 
@@ -133,7 +145,7 @@ $(document).keydown(function(e) {
 
         case 39: // right
           if (right != 0) {
-           getChannel(right);
+           getChannel(right.id);
           }
         break;
 
