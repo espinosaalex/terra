@@ -47,8 +47,8 @@ body {
   overflow-y:auto;
   height: 90vh;
   padding: 15px 40px 15px 40px;
-  font-size: 24px;
-  line-height: 32px;
+  font-size: 22px;
+  line-height: 28px;
   word-spacing: 0px;
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;    /* Firefox, other Gecko */
@@ -70,6 +70,7 @@ body {
 
 .header p {
   margin: 0px 0px 0px 0px;
+  font-size: 24px;
 }
 
 .boxes-container {
@@ -126,15 +127,43 @@ body {
 }
 
 .overlay-content {
-  color: #F0E4DC;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
+
+.overlay-box:hover {
+  color: black;
+}
+
+.overlay-box {
+  color: #F0E4DC;
+  border-color: #F0E4DC;
+  border-style: solid;
+  border-width: 1px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  text-align: center;
+  height: 16vh;
+  width: 16vh;
+  word-wrap: break-word;
+  font-size: 15px;
+  margin: 2vh 4vh 2vh 4vh;
+  padding: 0vh 2vh 0vh 2vh;
+}
+
+
 
 .img-container {
   padding: 10vh 10vh 10vh 10vh;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 #channel-img {
   display: inline-block;
   width: auto;
-  height: 40vh;
+  height: 35vh;
 }
