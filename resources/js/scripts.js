@@ -16,7 +16,7 @@ function refreshHyphae(blockId){
     console.log(data.channels);
     data.channels.forEach(function(hypha){
       if ((hypha.user_id == 75780) && (hypha.title != "terrarism") && (hypha.id != channel.id)){
-        $("#spore-content").append("<p data-id=" + hypha.id.toString() + " class ='hypha'>" + hypha.title + "</p>");
+        $("#spore-content").append("<span data-id=" + hypha.id.toString() + " class ='hypha'>" + hypha.title + "</span>");
         hyphae.push(hypha);
       }
 
@@ -60,6 +60,8 @@ function getChannel(id){
     channel = data;
     $("#hypha-title").text(data.title);
     contInd = 0;
+    $("#channel-img").attr("src", "resources/images/" + data.title + ".jpg")
+    // $("#channel-img").html("<img src=" + channel.contents[0].image.display.url + ">");
     getSpore();
   });
 }
@@ -115,10 +117,24 @@ function shuffle(array) {
   return array;
 }
 
+function getChannelNav(){
+  fetch("https://api.are.na/v2/channels/terrarism-jo_a18tk90/channels?page=1&amp;per=30")
+  .then(response => response.json())
+  .then((data) => {
+    console.log(data);
+    data.channels.forEach(function(chan) {
 
+      if (chan.channel.owner_id == 75780){
+        console.log(chan);
+        $(".overlay-content").append("<span data-id=" + chan.channel.id.toString() + ">" + chan.channel.title + "</span>");
+      }
+    });
+  });
+}
 
 $( document ).ready(function() {
   getChannel("terrarism-jo_a18tk90");
+  getChannelNav();
 
 });
 
@@ -130,6 +146,15 @@ $('.page-right').on('click', '.hypha', function(e) {
 $( "#forward" ).click(function() {
   getSpore();
 });
+
+function openNav() {
+  document.getElementById("myNav").style.height = "100%";
+}
+
+/* Close when someone clicks on the "x" symbol inside the overlay */
+function closeNav() {
+  document.getElementById("myNav").style.height = "0%";
+}
 
 $(document).keydown(function(e) {
     switch(e.which) {
@@ -150,6 +175,7 @@ $(document).keydown(function(e) {
         break;
 
         case 40: // down
+          openNav();
         break;
 
         default: return; // exit this handler for other keys

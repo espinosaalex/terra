@@ -11,18 +11,9 @@ body {
   font-family: "Helvetica LT W01 Bold O1489460";
   color: #0030C5;
   background-color: black;
+
 }
 
-p {
-  font-size: 24px;
-  line-height: 32px;
-  word-spacing: 0px;
-}
-
-.container {
-  margin: 0px 142.406px;
-  padding: 64px 0px;
-}
 
 .split {
   height: 100vh;
@@ -43,6 +34,11 @@ p {
 
 .hypha {
   color: #0030C5;
+  margin: 0px 10px 0px 0px;
+  font-size: 16px;
+}
+.hypha:hover {
+  text-decoration: underline;
 }
 
 .page-right {
@@ -50,6 +46,13 @@ p {
   margin: 5vh 10vw 5vh 3vw;
   overflow-y:auto;
   height: 90vh;
+  padding: 15px 40px 15px 40px;
+  font-size: 24px;
+  line-height: 32px;
+  word-spacing: 0px;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
 .page-left {
@@ -61,6 +64,12 @@ p {
 
 .header {
   height: 10vh;
+  padding: 10px 40px 10px 60px;
+  font-size: 24px;
+}
+
+.header p {
+  margin: 0px 0px 0px 0px;
 }
 
 .boxes-container {
@@ -77,18 +86,55 @@ p {
   border-style: solid;
   border-width: 1px;
   display: flex;
-  justify-content:center;
-  align-content:center;
+  justify-content: center;
+  align-content: center;
   flex-direction: column;
-  height: 18vh;
-  width: 18vh;
-
+  height: 16vh;
+  width: 16vh;
+  word-wrap: break-word;
+  font-size: 15px;
+  margin: 2vh 4vh 2vh 4vh;
+  padding: 0vh 2vh 0vh 2vh;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
 
 }
 
 #box-right {
 }
 
-.header h1 {
-  font-size: 16px;
+.overlay {
+  /* Height & width depends on how you want to reveal the overlay (see JS below) */
+  height: 0;
+  width: 100%;
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  background-color: #0030C5; /* Black fallback color */
+  background-color: #0030C5, 0.9; /* Black w/opacity */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  transition: 0.1s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+}
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+  color: #F0E4DC;
+}
+
+.overlay-content {
+  color: #F0E4DC;
+}
+
+.img-container {
+  padding: 10vh 10vh 10vh 10vh;
+  text-align: center;
+}
+#channel-img {
+  display: inline-block;
+  width: auto;
+  height: 40vh;
 }
