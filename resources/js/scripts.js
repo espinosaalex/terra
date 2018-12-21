@@ -13,7 +13,6 @@ function refreshHyphae(blockId){
   .then(response => response.json())
   .then((data) => {
     let hyphae = []
-    console.log(data.channels);
     data.channels.forEach(function(hypha){
       if ((hypha.user_id == 75780) && (hypha.title != "terrarism") && (hypha.id != channel.id)){
         $("#spore-content").append("<span data-id=" + hypha.id.toString() + " class ='hypha'>" + hypha.title + "</span>");
@@ -22,7 +21,6 @@ function refreshHyphae(blockId){
 
     });
     shuffle(hyphae);
-    console.log(hyphae);
     //fix in case less than 2 hypha
     if (hyphae.length == 0) {
       right = 0;
@@ -66,7 +64,6 @@ function getChannel(id){
     channel = data;
     $("#hypha-title").text(data.title);
     contInd = 0;
-    console.log(data);
     $("#channel-img").attr("src", "resources/images/" + data.title + ".jpg")
     // $("#channel-img").html("<img src=" + channel.contents[0].image.display.url + ">");
     getSpore();
@@ -76,17 +73,13 @@ function getChannel(id){
 
 
 function getSpore(){
-  console.log(channel.contents);
-  console.log(contInd);
   if (channel.contents.length == contInd) {
-    console.log("end");
     return endOfHypha();
   }
   else {
     let block = channel.contents[contInd];
     let blockId = block.id;
     if (channel.contents[contInd].class == "Image") {
-      console.log(block.image);
       $("#spore-content").html("<img src=" + block.image.display.url + ">");
     }
 
@@ -125,16 +118,11 @@ function shuffle(array) {
 }
 
 function getChannelNav(){
-  fetch("https://api.are.na/v2/channels/terrarism-jo_a18tk90/channels?page=1&amp;per=60")
+  fetch("https://api.are.na/v2/channels/298677")
   .then(response => response.json())
   .then((data) => {
-    console.log(data);
-    data.channels.forEach(function(chan) {
-
-      if (chan.channel.owner_id == 75780){
-        console.log(chan);
-        $(".overlay-content").append("<div class='overlay-box' data-id=" + chan.channel.id.toString() + ">" + chan.channel.title + "</div>");
-      }
+    data.contents.forEach(function(chan) {
+      $(".overlay-content").append("<div class='overlay-box' data-id=" + chan.id.toString() + ">" + chan.title + "</div>");
     });
   });
 }
